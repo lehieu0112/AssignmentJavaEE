@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./layout/layout.xhtml">
+         
+            <ui:define name="content">
+                <h:dataTable id="cart" value="#{cartManagedBean.invoice.lineItemsList}" var="lineItem"
+                             border="1" style="border-collapse: collapse;">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Quantity"/>
+                        </f:facet>
+                        <h:form>
+                            <h:inputText class="cart_update" value="#{lineItem.quantity}"/>
+                            <h:commandButton value="Update" 
+                            action="#{cartManagedBean.updateLineItem(lineItem.product.productID, lineItem.quantity)}"/>
+                        </h:form>                       
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Product Name"/>
+                        </f:facet>
+                            <h:outputText value="#{lineItem.product.productName}"/>                                                                         
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Unit Price"/>
+                        </f:facet>
+                        <h:outputText value="#{lineItem.product.formatPrice}đ"/>                                                                      
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Amount"/>
+                        </f:facet>
+                        <h:outputText value="#{lineItem.formatLineItemTotal}đ"/>                                     
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Action"/>
+                        </f:facet>
+                        <h:form>                            
+                            <h:commandButton value="Remove" 
+                             action="#{cartManagedBean.removeLineItem(lineItem.product.productID)}"/>
+                        </h:form>                       
+                    </h:column>               
+                </h:dataTable><br></br>
+                <h1>Tổng số tiền phải thanh toán : #{cartManagedBean.invoice.formatInvoiceTotal} VNĐ</h1>
+                <br></br>
+                <h1>Vui lòng điền thông tin để thanh toán : </h1>
+                <br></br>
+                <h:form>
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="Full Name : "/>
+                        <h:inputText value="#{cartManagedBean.invoice.customer.customerName}"/>
+                        <h:outputLabel value="Email : "/>
+                        <h:inputText value="#{cartManagedBean.invoice.customer.customerEmail}"/>
+                        <h:outputLabel value="Address :"/>
+                        <h:inputText value="#{cartManagedBean.invoice.customer.customerAddress}"/>
+                        <h:outputLabel value="Phone Number : "/>
+                        <h:inputText value="#{cartManagedBean.invoice.customer.customerPhoneNumber}"/>
+                        <h:outputLabel value="Note : "/>
+                        <h:inputTextarea value="#{cartManagedBean.invoice.customer.customerNote}"/>
+                    </h:panelGrid>
+                    <h:commandButton value="Thanh toán" action="#{cartManagedBean.insertInvoice()}"/>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

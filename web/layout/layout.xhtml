@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="./css/default.css"/>
+        <h:outputStylesheet name="./css/cssLayout.css"/>
+        <title>Shopping cart</title>
+    </h:head>
+
+    <h:body>
+
+        <div id="top">
+            <h1>Wellcome to shopping cart web appplication !</h1><br></br>
+        <ul>
+            <li><h:link outcome="index.xhtml" value="Trang chủ"/></li>
+            <li><h:form>
+                    <h:commandLink action="#{productsManagedBean.searchProducts(2)}" value="Laptop"/>
+                </h:form></li>
+            <li><h:form>
+                    <h:commandLink action="#{productsManagedBean.searchProducts(3)}" value="Mobile"/>
+                </h:form></li>
+            <li><h:form>
+                    <h:commandLink action="#{productsManagedBean.searchProducts(4)}" value="Tablet"/>
+                </h:form></li>
+            <li><h:form>
+                    <h:commandLink action="#{productsManagedBean.searchProducts(5)}" value="Desktop"/>
+                </h:form></li>
+            <li><h:link outcome="cart.xhtml" value="Giỏ hàng (#{cartManagedBean.invoice.lineItemsList.size()} Items)"/></li>
+            <li id="li_form">
+                <h:form id="searchform">
+                    <h:inputText value="#{productsManagedBean.product.productName}" />
+                    <h:commandButton value="Tìm kiếm" action="#{productsManagedBean.searchProducts(1)}">                        
+                    </h:commandButton>
+                </h:form>
+            </li>
+        </ul>
+        </div>
+
+        <div id="content" class="center_content">
+            <ui:insert name="content">Content</ui:insert>
+        </div>
+
+        <div id="bottom">
+            <br></br>
+            <h4>&COPY; 2016 Copyright by Lê Trung Hiếu-OJT02
+            </h4><br></br>
+        </div>
+
+    </h:body>
+
+</html>
